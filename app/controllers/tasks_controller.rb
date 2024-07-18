@@ -1,3 +1,4 @@
+
 class TasksController < ApplicationController
   before_action :set_project, only: [:index, :new, :create]
   before_action :set_task, only: [:update, :destroy]
@@ -13,8 +14,7 @@ class TasksController < ApplicationController
   def edit; end
 
   def create
-    @task = @project.tasks.build(task_params)
-    @task.user = current_user
+    @task = @project.tasks.build(task_params.merge(user: current_user))
 
     if @task.save
       flash[:notice] = 'Success result'
