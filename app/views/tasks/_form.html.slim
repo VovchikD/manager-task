@@ -1,0 +1,27 @@
+= form_with(model: [@project, @task]) do |form|
+  - if @task.errors.any?
+    #error_explanation
+      h2
+        = pluralize(@task.errors.count, "error") + " prohibited this task from being saved:"
+      ul
+        - @task.errors.full_messages.each do |message|
+          li = message
+
+  .field
+    = form.label :title
+    = form.text_field :title
+
+  .field
+    = form.label :description
+    = form.text_area :description
+
+  .field
+    = form.label :end_day
+    = form.date_select :end_day
+
+  .field
+    = form.label :completed
+    = form.check_box :completed
+
+  .actions
+    = form.submit
