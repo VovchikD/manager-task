@@ -1,14 +1,15 @@
+# frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_project, only: [:index, :new, :create]
-  before_action :set_task, only: [:update, :destroy]
+  before_action :set_project, only: %i[index new create edit update]
+  before_action :set_task, only: %i[edit update destroy]
 
   def index
     @tasks = @project.tasks
   end
 
   def new
-    @task = @project.tasks.build
+    @task = @project.tasks.new
   end
 
   def edit; end
@@ -27,7 +28,7 @@ class TasksController < ApplicationController
   def update
     if @task.update(task_params)
       flash[:notice] = 'Success result'
-      redirect_to project_tasks_path(@task.project)
+      redirect_to project_tasks_path(@project)
     else
       render :edit
     end
@@ -36,16 +37,15 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     flash[:notice] = 'Successfully destroyed.'
-    redirect_to project_tasks_path(@task.project)
+    redirect_to project_tasks_path(@project)
   end
 
   private
 
   def set_project
     @project = Project.find(params[:project_id])
-
-    rescue ActiveRecord::RecordNotFound
-      flash[:alert] = 'Project not found.'
+  rescue ActiveRecord::RecordNotFound
+    flash[:alert] = 'Project not found.'
   end
 
   def set_task
