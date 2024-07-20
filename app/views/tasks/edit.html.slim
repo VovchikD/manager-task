@@ -1,4 +1,12 @@
+
 div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
-  h1.text-xl.font-semibold.text-gray-900 Edit Task
-  = render 'form', project: @project, task: @task
-  = link_to raw('&#8592; Back'), project_tasks_path(@task.project), class: 'text-blue-600 dark:text-blue-500 hover:underline'
+  = turbo_frame_tag dom_id(@task, :title) do
+    = render 'edit_title', project: @project, task: @task
+
+div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
+  = turbo_frame_tag dom_id(@task, :description) do
+    = render 'edit_description', project: @project, task: @task
+
+div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
+  = turbo_frame_tag dom_id(@task, :end_day) do
+    = render 'edit_end_day', project: @project, task: @task

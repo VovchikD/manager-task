@@ -1,3 +1,4 @@
+
 - if @project.present?
   .relative.overflow-x-auto.shadow-md.sm:rounded-lg
     table.w-full.text-sm.text-left.rtl:text-right.text-gray-500.dark:text-gray-400
@@ -11,15 +12,23 @@
       tbody
         - @tasks.each do |task|
           tr.odd:bg-white.odd:dark:bg-gray-900.even:bg-gray-50.even:dark:bg-gray-800.border-b.dark:border-gray-700
-            td.px-6.py-4.text-base= task.title
-            td.px-6.py-4.text-base= task.description
-            td.px-6.py-4.text-base= task.end_day
+            td.px-6.py-4.text-base
+              = turbo_frame_tag dom_id(task, :title) do
+                = task.title
+            td.px-6.py-4.text-base
+              = turbo_frame_tag dom_id(task, :description) do
+                = task.description
+            td.px-6.py-4.text-base
+              = turbo_frame_tag dom_id(task, :end_day) do
+                = task.end_day
             td.px-6.py-4.text-base= task.completed
             td.px-6.py-4
-              = link_to 'Edit', edit_project_task_path(@project, task)
+              = link_to 'Edit Title', edit_project_task_path(@project, task), data: { turbo_frame: dom_id(task, :title) }
+              = link_to 'Edit Description', edit_project_task_path(@project, task), data: { turbo_frame: dom_id(task, :description) }
+              = link_to 'Edit End Day', edit_project_task_path(@project, task), data: { turbo_frame: dom_id(task, :end_day) }
               = button_to 'Destroy', [@project, task], method: :delete, class: 'font-medium text-red-600 dark:text-red-500 hover:underline'
 
   = link_to raw('&#8592; Back'), root_path
   = link_to 'New Task', new_project_task_path(@project), class: 'font-medium text-blue-600 dark:text-blue-500 hover:underline'
--else 
+- else
   = link_to 'New Task', new_project_task_path(@project), class: 'font-medium text-blue-600 dark:text-blue-500 hover:underline'
