@@ -12,7 +12,9 @@ class TasksController < ApplicationController
     @task = @project.tasks.new
   end
 
-  def edit; end
+  def edit
+    authorize @task
+  end
 
   def create
     @task = @project.tasks.build(task_params.merge(user: current_user))
@@ -28,7 +30,7 @@ class TasksController < ApplicationController
   end
 
   def update
-    authorize @task
+    # task_completed
 
     if @task.update(task_params)
       flash[:notice] = 'Success result'
@@ -47,6 +49,12 @@ class TasksController < ApplicationController
   end
 
   private
+
+  def task_completed
+    return unless @task.update(completed: true)
+
+    TaskCompletedJob.perform_later(@task)
+  end
 
   def set_project
     @project = Project.find(params[:project_id])

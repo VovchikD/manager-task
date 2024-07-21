@@ -10,7 +10,8 @@
           tr.odd:bg-white.odd:dark:bg-gray-900.even:bg-gray-50.even:dark:bg-gray-800.border-b.dark:border-gray-700
             td.px-6.py-4.text-base= user.email
             td.px-6.py-4
-              = button_to 'Remove', remove_teammate_project_path(@project, user_id: user.id), method: :delete, class: 'font-medium text-red-600 dark:text-red-500 hover:underline'
+              - if policy(@project).remove_teammate?
+                = button_to 'Remove', remove_teammate_project_path(@project, user_id: user.id), method: :delete, class: 'font-medium text-red-600 dark:text-red-500 hover:underline'
         = render 'form_add_team', project: @project
 - else
   = render 'form_add_team', project: @project

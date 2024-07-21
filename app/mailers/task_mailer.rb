@@ -10,4 +10,14 @@ class TaskMailer < ApplicationMailer
       subject: "New task in your project #{@project.title}"
     )
   end
+
+  def task_completed_notification(user, task)
+    @user = user
+    @task = task
+    @project = task.project
+    mail(
+      to: @user.email,
+      subject: "Task Completed: #{@task.title}"
+    )
+  end
 end

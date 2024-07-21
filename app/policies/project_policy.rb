@@ -2,18 +2,18 @@
 
 class ProjectPolicy < ApplicationPolicy
   def create?
-    user.admin? && record.user == user
+    user.admin?
   end
 
   def add_teammate?
-    user.admin? && record.user == user
+    user.admin?
   end
 
   def remove_teammate?
-    user.admin? && record.user == user
+    user.admin?
   end
 
   def destroy?
-    user.admin? && record.user == user
+    user.admin?
   end
 end
