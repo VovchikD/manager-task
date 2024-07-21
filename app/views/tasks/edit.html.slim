@@ -1,12 +1,16 @@
 
 div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
   = turbo_frame_tag dom_id(@task, :title) do
-    = render 'edit_title', project: @project, task: @task
+    = render 'tasks/editing/edit_title', project: @project, task: @task
 
 div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
   = turbo_frame_tag dom_id(@task, :description) do
-    = render 'edit_description', project: @project, task: @task
+    = render 'tasks/editing/edit_description', project: @project, task: @task
 
 div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
   = turbo_frame_tag dom_id(@task, :end_day) do
-    = render 'edit_end_day', project: @project, task: @task
+    = render 'tasks/editing/edit_end_day', project: @project, task: @task
+
+div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
+  = turbo_frame_tag dom_id(@task, :completed) do
+    = render 'tasks/editing/edit_completed', project: @project, task: @task

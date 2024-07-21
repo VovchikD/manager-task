@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class TasksController < ApplicationController
-  before_action :set_project, only: %i[index new create edit update]
+  before_action :set_project, only: %i[index new create edit update destroy]
   before_action :set_task, only: %i[edit update destroy]
 
   def index
