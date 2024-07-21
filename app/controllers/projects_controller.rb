@@ -15,6 +15,7 @@ class ProjectsController < ApplicationController
   def show; end
 
   def create
+    authorize @project
     @project = current_user.projects.build(project_params)
 
     if @project.save
@@ -26,12 +27,16 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
+    authorize @project
+
     @project.destroy
     flash[:notice] = 'Project was successfully destroyed.'
     redirect_to projects_path
   end
 
   def add_teammate
+    authorize @project
+
     if @project.users << @user
       redirect_to project_path
     else
@@ -40,6 +45,8 @@ class ProjectsController < ApplicationController
   end
 
   def remove_teammate
+    authorize @project
+
     @project.users.delete(@user)
     redirect_to project_path
   end

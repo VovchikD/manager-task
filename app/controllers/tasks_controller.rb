@@ -16,6 +16,7 @@ class TasksController < ApplicationController
 
   def create
     @task = @project.tasks.build(task_params.merge(user: current_user))
+    authorize @task
 
     if @task.save
       flash[:notice] = 'Success result'
@@ -26,6 +27,8 @@ class TasksController < ApplicationController
   end
 
   def update
+    authorize @task
+
     if @task.update(task_params)
       flash[:notice] = 'Success result'
       redirect_to project_tasks_path(@project)
@@ -35,6 +38,8 @@ class TasksController < ApplicationController
   end
 
   def destroy
+    authorize @task
+
     @task.destroy
     flash[:notice] = 'Successfully destroyed.'
     redirect_to project_tasks_path(@project)
