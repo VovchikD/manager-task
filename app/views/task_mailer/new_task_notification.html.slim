@@ -1,0 +1,17 @@
+doctype html
+html
+  body
+    h1 New Task Created
+    p
+      | Hello #{@user.email},
+    p
+      | A new task has been assigned to your project "#{@project.title}".
+    p
+      strong Title:
+      = @task.title
+    p
+      strong Description:
+      = @task.description
+    p
+      strong End Day:
+      = @task.end_day

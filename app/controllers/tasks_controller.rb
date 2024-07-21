@@ -19,6 +19,7 @@ class TasksController < ApplicationController
     authorize @task
 
     if @task.save
+      TaskNotificationJob.perform_later(@task)
       flash[:notice] = 'Success result'
       redirect_to project_tasks_path(@project)
     else
