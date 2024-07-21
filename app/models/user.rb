@@ -5,5 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :tasks
-  has_many :projects
+  has_many :projects, through: :teams
+  has_many :teams
+
+  enum role: { default: 0, admin: 1 }
 end
