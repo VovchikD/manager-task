@@ -1,0 +1,21 @@
+= form_with(model: [@project, @task]) do |form|
+
+  .mt-4.sm:w-full.sm:max-w-sm
+    = form.label :title, class: "block text-sm font-medium text-gray-900"
+    = form.text_field :title, class: "w-full py-2 px-3 border rounded-md"
+
+  .mt-4.sm:w-full.sm:max-w-sm
+    = form.label :description, class: "block text-sm font-medium text-gray-900"
+    = form.text_area :description, class: "w-full py-2 px-3 border rounded-md"
+
+  .mt-4.sm:w-full.sm:max-w-sm
+    = form.label :end_day, class: "block text-sm font-medium text-gray-900"
+    .mt-1.block.w-full.shadow-sm.sm:text-sm.border.border-gray-300.rounded-md
+      = form.date_select :end_day, class: "w-full"
+
+  .mt-4.sm:w-full.sm:max-w-sm
+    = form.label :completed, class: "w-full py-4 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+    = form.check_box :completed, class: 'flex items-center ps-4 border border-gray-200 rounded dark:border-gray-700'
+
+  .mt-4.sm:w-full.sm:max-w-sm
+    = form.submit "Submit", class: "inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

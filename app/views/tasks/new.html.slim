@@ -1,0 +1,4 @@
+div.p-4.max-w-xl.mx-auto.bg-white.rounded-xl.shadow-md
+  h1.text-xl.font-semibold.text-gray-900 New Task
+  = render 'form', project: @project, task: @task
+  = link_to raw('&#8592; Back'), project_tasks_path(@project), class: 'text-blue-600 dark:text-blue-500 hover:underline'
