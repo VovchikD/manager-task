@@ -12,13 +12,16 @@ class TasksController < ApplicationController
     @task = @project.tasks.new
   end
 
-  def edit; end
+  def edit
+    authorize @task
+  end
 
   def create
     @task = @project.tasks.build(task_params.merge(user: current_user))
     authorize @task
 
     if @task.save
+      TaskNotificationJob.perform_later(@task)
       flash[:notice] = 'Success result'
       redirect_to project_tasks_path(@project)
     else
@@ -27,8 +30,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    authorize @task
-
     if @task.update(task_params)
       flash[:notice] = 'Success result'
       redirect_to project_tasks_path(@project)

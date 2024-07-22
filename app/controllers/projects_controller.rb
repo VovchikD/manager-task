@@ -15,8 +15,8 @@ class ProjectsController < ApplicationController
   def show; end
 
   def create
-    authorize @project
     @project = current_user.projects.build(project_params)
+    authorize @project
 
     if @project.save
       flash[:notice] = 'Project was successfully created.'
