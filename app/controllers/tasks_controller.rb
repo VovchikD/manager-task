@@ -30,8 +30,6 @@ class TasksController < ApplicationController
   end
 
   def update
-    # task_completed
-
     if @task.update(task_params)
       flash[:notice] = 'Success result'
       redirect_to project_tasks_path(@project)
@@ -49,12 +47,6 @@ class TasksController < ApplicationController
   end
 
   private
-
-  def task_completed
-    return unless @task.update(completed: true)
-
-    TaskCompletedJob.perform_later(@task)
-  end
 
   def set_project
     @project = Project.find(params[:project_id])
